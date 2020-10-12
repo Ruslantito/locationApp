@@ -5,12 +5,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
-
 import com.sachinvarma.easylocationsample.tools.HTTPHandler;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 
 public class A_addRecord extends AsyncTask<Void, Void, Void> {
@@ -26,6 +23,7 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
 
     String backendURL;
     String infoText;
+    String new_id;
 
     @Override
     protected void onPreExecute() {
@@ -43,6 +41,12 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
         }else if (recordType == "routeStop"){
             backendURL = myUrl + "/addRouteStop/" + route_id + "/" + stop_id;
             infoText = tempInfoText;
+
+        }else if (recordType == "RouteStopNew"){
+            backendURL = myUrl + "/addStop/" + name + "/" + stop_coordX + "/" + stop_coordY;
+            infoText = "Новая остановка успешно добавлена!";
+
+
         }else {
 
         }
@@ -56,7 +60,7 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
             if (json != null) {
                 JSONObject jsonObject  = new JSONObject(json);
                 JSONObject jsonObject2 = new JSONObject(jsonObject.get("response").toString());
-                String new_id = jsonObject2.get("insertId").toString();
+                new_id = jsonObject2.get("insertId").toString();
                 Log.e("list", "New record ID: " + new_id);
             } else {
                 Log.e("list", "could not get JSON routes from server");
@@ -70,8 +74,24 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+
         Toast toast = Toast.makeText(context, infoText, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 0);
         toast.show();
+
+        if(recordType == "RouteStopNew"){
+            if(route_id > 0 && new_id != "") {
+                A_addRecord addRoute;
+                addRoute = new A_addRecord();
+                addRoute.context = context;
+                addRoute.route_id = route_id;
+                addRoute.stop_id = Integer.parseInt(new_id);
+                addRoute.recordType = "routeStop";
+                addRoute.tempInfoText = infoText;
+                addRoute.execute();
+            }
+        }
+
+
     }
 }

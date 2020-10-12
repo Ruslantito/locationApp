@@ -1,5 +1,5 @@
 <resources>
   <string name="app_name">EasyLocation</string>
-  <string name="get_location">Получить координаты</string>
+  <string name="get_location">Добавить остановку</string>
   <string name="no_location_found">Место не найдено</string>
 </resources>

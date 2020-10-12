@@ -35,13 +35,6 @@ public class LoadAdmStops extends AsyncTask<Void, Void, Void> {
     public TextView labelStopsList;
     public TextView labelStopsListFRS;
 
-
-/*
-    public A_StopsFragment activity;
-    public A_RouteStopsFragment activity2;
-*/
-
-
     List<String> stopSimpleArray;
 
     @Override
@@ -82,53 +75,6 @@ public class LoadAdmStops extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
-
-        /*
-        Integer choosedStops = 0;
-        ArrayAdapter<String> adapter;
-
-        if (choiceMode == "none"){
-            // устанавливаем режим выбора пунктов списка
-            lvMain2.setChoiceMode(ListView.CHOICE_MODE_NONE);
-            adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_activated_1, stopSimpleArray);
-            lvMain2.setAdapter(adapter);
-
-        }else if (choiceMode == "multiple"){
-            lvMain2.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-            adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_multiple_choice, stopSimpleArray);
-            lvMain2.setAdapter(adapter);
-            for (int i = 0 ; i < stopsArray.size() ; i++){
-                for (int i2 = 0 ; i2 < activity2.routeStopsArray.size() ; i2++) {
-                    if (stopsArray.get(i).id == activity2.routeStopsArray.get(i2).id) {
-                        activity2.lvMain2.setItemChecked(i, true);
-                        choosedStops += 1;
-                        break;
-                    } else {
-                        activity2.lvMain2.setItemChecked(i, false);
-                    }}}
-
-        }else if (choiceMode == "single"){
-            lvMain2.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, stopSimpleArray);
-            lvMain2.setAdapter(adapter);
-
-        }else {
-            lvMain2.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_activated_2, stopSimpleArray);
-            lvMain2.setAdapter(adapter);
-        }
-
-        labelStopsList.setText("Список остановок (" + stopsArray.size() + ")");
-
-        if (activ_name == "activity2"){
-            activity2.stopsArray = stopsArray;
-            activity2.labelStopsListFRS.setText("Список остановок (" + choosedStops + "/" + stopsArray.size() + ")");
-        } else if (activ_name == "activity") {
-            activity.stopsArray = stopsArray;
-        }
-    */
-
-
     }
 
 

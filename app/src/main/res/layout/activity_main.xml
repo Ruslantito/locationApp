@@ -8,401 +8,408 @@ android:layout_height="fill_parent"
 android:orientation="vertical"
 tools:context="com.sachinvarma.easylocationsample.MainActivity">
 
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-  <Button
-      android:id="@+id/btnNewRouteFRS"
-      style="@style/Widget.AppCompat.Button.Colored"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="5dp"
-      android:text="+ Маршрут"
-      android:visibility="visible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
 
   <android.support.constraint.ConstraintLayout
+      android:id="@+id/GENERAL"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:visibility="visible"
-      tools:visibility="visible">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
-        android:text="Маршруты"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinnerRoutes"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="5dp"
-        android:text="Остановки"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerRoutes" />
-
-    <Spinner
-        android:id="@+id/spinnerStops"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-  </android.support.constraint.ConstraintLayout>
-
-  <android.support.constraint.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      tools:visibility="gone">
-
-    <TextView
-        android:id="@+id/labelRoutesListFRS"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:text="Маршруты"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/lvMain"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:paddingBottom="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/labelRoutesListFRS" />
-
-  </android.support.constraint.ConstraintLayout>
-
-  <android.support.constraint.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="#1900BCD4"
-      android:visibility="gone"
-      tools:visibility="gone">
-
-    <TextView
-        android:id="@+id/labelStopsListFRS"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="bottom"
-        android:text="Остановки для маршрута"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/lvMain2"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:paddingBottom="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelStopsListFRS"></ListView>
-
-
-  </android.support.constraint.ConstraintLayout>
-
-
-  <android.support.constraint.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="40dp"
-      android:background="#1A00BCD4"
-      android:visibility="visible"
-      tools:visibility="visible">
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="left|center_vertical"
-        android:text="Детали остановки"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
-        android:text="ID"
-        android:textColor="@color/colorAccent"
-        android:textStyle="italic"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <EditText
-        android:id="@+id/tvStopId"
-        android:layout_width="83dp"
-        android:layout_height="40dp"
-        android:clickable="false"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="---"
-        android:inputType="number"
-        android:textColor="@android:color/black"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Название остановки"
-        android:textColor="@color/colorAccent"
-        android:textStyle="italic"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/etStopName"
-        app:layout_constraintTop_toTopOf="@+id/textView6" />
-
-    <EditText
-        android:id="@+id/etStopName"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="---"
-        android:imeOptions="actionNext"
-        android:inputType="text"
-        android:textColor="@android:color/black"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvStopId"
-        app:layout_constraintTop_toTopOf="@+id/tvStopId" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:enabled="false"
-        android:text="Координата X"
-        android:textColor="@color/colorAccent"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/etCoordX"
-        app:layout_constraintTop_toBottomOf="@+id/tvStopId" />
-
-    <EditText
-        android:id="@+id/etCoordX"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="---"
-        android:imeOptions="actionNext"
-        android:inputType="numberDecimal"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/etCoordY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Координата Y"
-        android:textColor="@color/colorAccent"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/etCoordY"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-    <EditText
-        android:id="@+id/etCoordY"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:enabled="false"
-        android:hint="---"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/etCoordX"
-        app:layout_constraintTop_toTopOf="@+id/etCoordX" />
-
-
-    <Button
-        android:id="@+id/btnDlg1"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:background="@android:drawable/ic_menu_myplaces"
-        android:textSize="12sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/etCoordY"
-        app:layout_constraintStart_toEndOf="@+id/etCoordY"
-        app:layout_constraintTop_toTopOf="@+id/textView9"></Button>
+      android:visibility="visible">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cnstrEditBlockS"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCoordX"
-        tools:visibility="gone">
-
-      <Button
-          android:id="@+id/btnDeleteS"
-          style="@style/Widget.AppCompat.Button.Colored"
-          android:layout_width="wrap_content"
-          android:layout_height="40dp"
-          android:layout_marginStart="16dp"
-          android:layout_marginLeft="16dp"
-          android:layout_marginTop="8dp"
-          android:layout_marginBottom="8dp"
-          android:background="#F44336"
-          android:text="удалить"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-
-      <Button
-          android:id="@+id/btnSaveS"
-          style="@style/Widget.AppCompat.Button.Colored"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="5dp"
-          android:layout_marginRight="5dp"
-          android:text="сохранить"
-          app:layout_constraintBottom_toBottomOf="@id/btnDeleteS"
-          app:layout_constraintEnd_toStartOf="@id/btnCancelS"
-          app:layout_constraintTop_toTopOf="@id/btnDeleteS" />
-
-      <Button
-          android:id="@+id/btnCancelS"
-          style="@style/Widget.AppCompat.Button.Colored"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
-          android:layout_marginRight="16dp"
-          android:text="отменить"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="@+id/btnSaveS" />
-
-    </android.support.constraint.ConstraintLayout>
-
-  </android.support.constraint.ConstraintLayout>
-
-  <android.support.constraint.ConstraintLayout
-      android:id="@+id/cnstrAddCoord"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:visibility="visible"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/cnstrNoEditBlockS"
-      tools:visibility="visible">
-
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center"
-        android:text="@string/no_location_found"
-        android:textColor="@color/colorAccent"
-        android:textSize="10sp"
+        android:id="@+id/cnstrChooseData"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop="32dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:visibility="visible">
 
-    <Button
-        android:id="@+id/btGetLocation"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
+      <TextView
+          android:id="@+id/textView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="5dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginRight="5dp"
+          android:text="Маршрут"
+          android:textAlignment="center"
+          android:textColor="@color/colorAccent"
+          android:textSize="25sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <Spinner
+          android:id="@+id/spinnerRoutes"
+          style="@android:style/Widget.DeviceDefault.Spinner"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="8dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+      <TextView
+          android:id="@+id/textView2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="5dp"
+          android:layout_marginTop="32dp"
+          android:layout_marginRight="5dp"
+          android:text="Остановка"
+          android:textAlignment="center"
+          android:textColor="@color/colorAccent"
+          android:textSize="25sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.555"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/spinnerRoutes" />
+
+      <Spinner
+          android:id="@+id/spinnerStops"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="8dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cnstrAddCoord"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/get_location"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/cnstrChooseData"
+        tools:visibility="visible">
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="100dp"
+      <TextView
+          android:id="@+id/tvLocation"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="50dp"
+          android:layout_marginEnd="10dp"
+          android:gravity="center"
+          android:text="@string/no_location_found"
+          android:textColor="@android:color/darker_gray"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:ignore="MissingConstraints" />
+
+      <Button
+          android:id="@+id/btGetLocation"
+          style="@style/Widget.AppCompat.Button.Colored"
+          android:layout_width="140dp"
+          android:layout_height="140dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="50dp"
+          android:layout_marginEnd="16dp"
+          android:background="@drawable/roundedbutton"
+          android:clickable="true"
+          android:focusable="true"
+          android:text="@string/get_location"
+          android:textSize="20sp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+
+
+    </android.support.constraint.ConstraintLayout>
+  </android.support.constraint.ConstraintLayout>
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/SeconPart"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
+      tools:visibility="gone">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cnstrRoutes"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
+        android:layout_marginTop="16dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btGetLocation" />
+        app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+          android:id="@+id/labelRoutesListFRS"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:gravity="center_vertical"
+          android:text="Маршруты"
+          android:textColor="@color/colorAccent"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <ListView
+          android:id="@+id/lvMain"
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          android:paddingBottom="5dp"
+          app:layout_constraintTop_toBottomOf="@+id/labelRoutesListFRS" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cnstrStops"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#1900BCD4"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnstrRoutes">
+
+      <TextView
+          android:id="@+id/labelStopsListFRS"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:gravity="bottom"
+          android:text="Остановки для маршрута"
+          android:textColor="@color/colorAccent"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <ListView
+          android:id="@+id/lvMain2"
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          android:paddingBottom="5dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/labelStopsListFRS"></ListView>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cnstrCoorData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1A00BCD4"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnstrStops">
+
+      <TextView
+          android:id="@+id/textView5"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="8dp"
+          android:gravity="left|center_vertical"
+          android:text="Ваши координаты"
+          android:textAlignment="center"
+          android:textColor="@color/colorAccent"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+          android:id="@+id/textView6"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="5dp"
+          android:paddingLeft="5dp"
+          android:text="ID"
+          android:textColor="@color/colorAccent"
+          android:textStyle="italic"
+          android:visibility="visible"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+      <EditText
+          android:id="@+id/tvStopId"
+          android:layout_width="83dp"
+          android:layout_height="40dp"
+          android:clickable="false"
+          android:ems="10"
+          android:enabled="false"
+          android:hint="---"
+          android:inputType="number"
+          android:textColor="@android:color/black"
+          android:visibility="visible"
+          app:layout_constraintStart_toStartOf="@+id/textView6"
+          app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+      <TextView
+          android:id="@+id/textView7"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Название остановки"
+          android:textColor="@color/colorAccent"
+          android:textStyle="italic"
+          android:visibility="visible"
+          app:layout_constraintStart_toStartOf="@+id/etStopName"
+          app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+      <EditText
+          android:id="@+id/etStopName"
+          android:layout_width="0dp"
+          android:layout_height="40dp"
+          android:layout_marginStart="8dp"
+          android:ems="10"
+          android:enabled="false"
+          android:hint="---"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:textColor="@android:color/black"
+          android:visibility="visible"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/tvStopId"
+          app:layout_constraintTop_toTopOf="@+id/tvStopId" />
+
+      <TextView
+          android:id="@+id/textView8"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:ems="10"
+          android:enabled="false"
+          android:text="Координата X"
+          android:textColor="@color/colorAccent"
+          android:textStyle="italic"
+          app:layout_constraintStart_toStartOf="@+id/etCoordX"
+          app:layout_constraintTop_toBottomOf="@+id/tvStopId" />
+
+      <EditText
+          android:id="@+id/etCoordX"
+          android:layout_width="0dp"
+          android:layout_height="40dp"
+          android:layout_marginStart="24dp"
+          android:layout_marginEnd="16dp"
+          android:ems="10"
+          android:enabled="false"
+          android:hint="---"
+          android:imeOptions="actionNext"
+          android:inputType="numberDecimal"
+          android:textColor="@android:color/black"
+          app:layout_constraintEnd_toStartOf="@+id/etCoordY"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+      <TextView
+          android:id="@+id/textView9"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Координата Y"
+          android:textColor="@color/colorAccent"
+          android:textStyle="italic"
+          app:layout_constraintStart_toStartOf="@+id/etCoordY"
+          app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+      <EditText
+          android:id="@+id/etCoordY"
+          android:layout_width="0dp"
+          android:layout_height="40dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="24dp"
+          android:ems="10"
+          android:enabled="false"
+          android:hint="---"
+          android:imeOptions="actionDone"
+          android:inputType="numberDecimal"
+          android:textColor="@android:color/black"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/etCoordX"
+          app:layout_constraintTop_toTopOf="@+id/etCoordX" />
+
+
+      <Button
+          android:id="@+id/btnDlg1"
+          style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:layout_marginStart="10dp"
+          android:background="@android:drawable/ic_menu_myplaces"
+          android:textSize="12sp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@+id/etCoordY"
+          app:layout_constraintStart_toEndOf="@+id/etCoordY"
+          app:layout_constraintTop_toTopOf="@+id/textView9"></Button>
+
+      <android.support.constraint.ConstraintLayout
+          android:id="@+id/cnstrEditBlockS"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/etCoordX"
+          tools:visibility="gone">
+
+        <Button
+            android:id="@+id/btnDeleteS"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#F44336"
+            android:text="удалить"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnSaveS"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:text="сохранить"
+            app:layout_constraintBottom_toBottomOf="@id/btnDeleteS"
+            app:layout_constraintEnd_toStartOf="@id/btnCancelS"
+            app:layout_constraintTop_toTopOf="@id/btnDeleteS" />
+
+        <Button
+            android:id="@+id/btnCancelS"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="отменить"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnSaveS" />
+
+      </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
 
   </android.support.constraint.ConstraintLayout>
 

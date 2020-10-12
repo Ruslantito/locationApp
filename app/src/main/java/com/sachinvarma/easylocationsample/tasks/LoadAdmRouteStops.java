@@ -8,11 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.sachinvarma.easylocationsample.MainActivity;
+import com.sachinvarma.easylocationsample.R;
 import com.sachinvarma.easylocationsample.objects.Stops;
 import com.sachinvarma.easylocationsample.tools.HTTPHandler;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,13 +24,12 @@ import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
     public Context context;
     public ArrayList<Stops> routeStopsArray;
-    public ListView lvMain;
+    //public ListView lvMain;
     public int routeId;
     public String choiceMode;
     //public TextView labelStopsListFRS;
 
     public Spinner spinnerStops;
-
     public MainActivity activity;
     List<String> routeStopsList;
 
@@ -41,7 +39,6 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
         super.onPreExecute();
         routeStopsArray = new ArrayList<>();
         routeStopsList = new ArrayList<>();
-
         routeStopsList.add("Выберите остановку");
     }
 
@@ -76,23 +73,21 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
-
-/////////////
         activity.routeStopsArray = routeStopsArray;
         //labelStopsListFRS.setText("Остановки для машрута (" + stopsList.size() + ")");
 
+        /*
         // устанавливаем режим выбора пунктов списка
         lvMain.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, routeStopsList);
         lvMain.setAdapter(adapter);
+        */
 
 
 
-        // выпадающий список для маршрутов
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, routeStopsList);
+        // выпадающий список для остановок
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_layout, routeStopsList);
+        //ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, routeStopsList);
         spinnerStops.setAdapter(adapter2);
-/////////////
-
-
     }
 }
