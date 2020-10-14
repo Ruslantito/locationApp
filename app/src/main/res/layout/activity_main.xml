@@ -16,27 +16,62 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
       android:visibility="visible">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cnstrTeamData"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#00BCD4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+          android:id="@+id/lblTxtTeam"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:text="Команда:"
+          android:textColor="#FFFFFF"
+          android:textSize="20sp"
+          android:textStyle="bold|italic"
+          app:layout_constraintBottom_toBottomOf="@+id/spinnerTeam"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/spinnerTeam" />
+
+      <Spinner
+          android:id="@+id/spinnerTeam"
+          style="@android:style/Widget.DeviceDefault.Spinner"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/cnstrChooseData"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="40dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnstrTeamData"
         tools:visibility="visible">
 
       <TextView
           android:id="@+id/textView"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="5dp"
-          android:layout_marginTop="10dp"
-          android:layout_marginRight="5dp"
+          android:layout_marginStart="60dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="60dp"
           android:text="Маршрут"
           android:textAlignment="center"
           android:textColor="@color/colorAccent"
-          android:textSize="25sp"
+          android:textSize="20sp"
           android:textStyle="bold"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -57,18 +92,37 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           android:id="@+id/textView2"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="5dp"
+          android:layout_marginStart="70dp"
           android:layout_marginTop="32dp"
-          android:layout_marginRight="5dp"
+          android:layout_marginEnd="70dp"
           android:text="Остановка"
           android:textAlignment="center"
           android:textColor="@color/colorAccent"
-          android:textSize="25sp"
+          android:textSize="20sp"
           android:textStyle="bold"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.555"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/spinnerRoutes" />
+
+      <Button
+          android:id="@+id/btAddStopNew"
+          style="@style/Widget.AppCompat.Button.Borderless"
+          android:layout_width="50dp"
+          android:layout_height="60dp"
+          android:layout_marginEnd="60dp"
+          android:layout_marginBottom="10dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:text="@string/add_newStop"
+          android:textAlignment="center"
+          android:textAllCaps="false"
+          android:textColor="@color/colorAccent"
+          android:textSize="35sp"
+          app:layout_constraintBottom_toBottomOf="@+id/textView2"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/textView2" />
+
 
       <Spinner
           android:id="@+id/spinnerStops"
@@ -81,13 +135,52 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+      <EditText
+          android:id="@+id/etStopName"
+          android:layout_width="0dp"
+          android:layout_height="45dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="47dp"
+          android:ems="10"
+          android:enabled="false"
+          android:hint="Добавьте остановку"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:textAlignment="center"
+          android:textColor="#FF8B1500"
+          android:textSize="25sp"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+      <Button
+          android:id="@+id/btHideStopNew"
+          style="@style/Widget.AppCompat.Button.Borderless"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="9dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:text="@string/hide_newStop"
+          android:textAlignment="center"
+          android:textAllCaps="false"
+          android:textColor="@android:color/holo_red_dark"
+          android:textSize="25sp"
+          app:layout_constraintBottom_toBottomOf="@+id/etStopName"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/etStopName" />
+
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cnstrAddCoord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +192,7 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="10dp"
-          android:layout_marginTop="50dp"
+          android:layout_marginTop="40dp"
           android:layout_marginEnd="10dp"
           android:gravity="center"
           android:text="@string/no_location_found"
@@ -273,22 +366,6 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           app:layout_constraintStart_toStartOf="@+id/etStopName"
           app:layout_constraintTop_toTopOf="@+id/textView6" />
 
-      <EditText
-          android:id="@+id/etStopName"
-          android:layout_width="0dp"
-          android:layout_height="40dp"
-          android:layout_marginStart="8dp"
-          android:ems="10"
-          android:enabled="false"
-          android:hint="---"
-          android:imeOptions="actionNext"
-          android:inputType="text"
-          android:textColor="@android:color/black"
-          android:visibility="visible"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@+id/tvStopId"
-          app:layout_constraintTop_toTopOf="@+id/tvStopId" />
-
       <TextView
           android:id="@+id/textView8"
           android:layout_width="wrap_content"
@@ -310,7 +387,6 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           android:layout_marginEnd="16dp"
           android:ems="10"
           android:enabled="false"
-          android:hint="---"
           android:imeOptions="actionNext"
           android:inputType="numberDecimal"
           android:textColor="@android:color/black"
@@ -336,7 +412,6 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           android:layout_marginEnd="24dp"
           android:ems="10"
           android:enabled="false"
-          android:hint="---"
           android:imeOptions="actionDone"
           android:inputType="numberDecimal"
           android:textColor="@android:color/black"

@@ -3,11 +3,9 @@ package com.sachinvarma.easylocationsample.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.util.SparseIntArray;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
+
 import com.sachinvarma.easylocationsample.MainActivity;
 import com.sachinvarma.easylocationsample.R;
 import com.sachinvarma.easylocationsample.objects.Stops;
@@ -22,12 +20,15 @@ import java.util.List;
 import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 
 public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
+
     public Context context;
     public ArrayList<Stops> routeStopsArray;
-    //public ListView lvMain;
     public int routeId;
     public String choiceMode;
+    //public ListView lvMain;
     //public TextView labelStopsListFRS;
+
+    public Integer stop_id;
 
     public Spinner spinnerStops;
     public MainActivity activity;
@@ -75,7 +76,6 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
 
         activity.routeStopsArray = routeStopsArray;
         //labelStopsListFRS.setText("Остановки для машрута (" + stopsList.size() + ")");
-
         /*
         // устанавливаем режим выбора пунктов списка
         lvMain.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -89,5 +89,17 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_layout, routeStopsList);
         //ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, routeStopsList);
         spinnerStops.setAdapter(adapter2);
+
+        /*//попытка выбрать остановку которая была до добавления новой остановки
+        if (stop_id != null){
+            for (int i = 0; i < routeStopsArray.size(); i++) {
+                if(stop_id == routeStopsArray.get(i).id){
+                    activity.spinnerStops.setSelection(i);
+                }
+            }
+        }
+
+        */
+
     }
 }

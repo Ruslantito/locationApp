@@ -3,6 +3,10 @@
     android:id="@+id/spinnerTarget"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textSize="25sp"
-    android:textColor="#FF8B1500"
-    android:gravity="center"/>
+
+    android:gravity="center_vertical"
+    android:paddingRight="15dp"
+    android:textAlignment="textEnd"
+    android:textColor="#3F51B5"
+    android:textSize="20sp"
+    android:textStyle="bold|italic" />

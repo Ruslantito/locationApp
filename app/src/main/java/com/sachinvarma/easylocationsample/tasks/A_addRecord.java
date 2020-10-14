@@ -4,10 +4,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.sachinvarma.easylocationsample.MainActivity;
+import com.sachinvarma.easylocationsample.objects.Stops;
 import com.sachinvarma.easylocationsample.tools.HTTPHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 
 public class A_addRecord extends AsyncTask<Void, Void, Void> {
@@ -20,14 +27,22 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
     public String stop_coordX;
     public String stop_coordY;
     public String tempInfoText;
+    public Spinner spinnerStops;
+    public ArrayList<Stops> routeStopsArray;
+
+    public String teamName;
 
     String backendURL;
     String infoText;
     String new_id;
 
+    public MainActivity activity;
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+        //routeStopsArray = new ArrayList<>();
 
         if (recordType == "route"){
             backendURL = myUrl + "/addRoute/" + name + "/" + transportTypeId;
@@ -38,14 +53,9 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
         }else if (recordType == "/transportType"){
             backendURL = myUrl + "addTransportType/" + name;
             infoText = "Новый вид транспорта успешно добавлен!";
-        }else if (recordType == "routeStop"){
-            backendURL = myUrl + "/addRouteStop/" + route_id + "/" + stop_id;
-            infoText = tempInfoText;
-
         }else if (recordType == "RouteStopNew"){
-            backendURL = myUrl + "/addStop/" + name + "/" + stop_coordX + "/" + stop_coordY;
+            backendURL = myUrl + "/addStopNew/" + name + "/" + stop_coordX + "/" + stop_coordY + "/" + teamName;
             infoText = "Новая остановка успешно добавлена!";
-
 
         }else {
 
@@ -81,13 +91,16 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
 
         if(recordType == "RouteStopNew"){
             if(route_id > 0 && new_id != "") {
-                A_addRecord addRoute;
-                addRoute = new A_addRecord();
-                addRoute.context = context;
+                A_addStopInRouter addRoute;
+                addRoute = new A_addStopInRouter();
                 addRoute.route_id = route_id;
+                addRoute.context = context;
                 addRoute.stop_id = Integer.parseInt(new_id);
-                addRoute.recordType = "routeStop";
-                addRoute.tempInfoText = infoText;
+
+                addRoute.activity = activity;
+                addRoute.spinnerStops = spinnerStops;
+                addRoute.routeStopsArray = routeStopsArray;
+
                 addRoute.execute();
             }
         }

@@ -2,4 +2,6 @@
   <string name="app_name">EasyLocation</string>
   <string name="get_location">Добавить остановку</string>
   <string name="no_location_found">Место не найдено</string>
+  <string name="add_newStop">+</string>
+  <string name="hide_newStop">x</string>
 </resources>
