@@ -22,10 +22,9 @@ import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 public class LoadAdmRoutes extends AsyncTask<Void, Void, Void> {
     public Context context;
     public ArrayList<Route> routesArray;
-    //public ListView lvMain;
-
     public MainActivity activity;
     public Spinner spinnerRoutes;
+    //public ListView lvMain;
 
     List<String> routesList;
 
@@ -76,9 +75,6 @@ public class LoadAdmRoutes extends AsyncTask<Void, Void, Void> {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, routesList);
         lvMain.setAdapter(adapter);
         */
-
-
-
 
         // выпадающий список для маршрутов
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_layout, routesList);

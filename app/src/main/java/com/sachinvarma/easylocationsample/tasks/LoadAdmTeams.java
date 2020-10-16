@@ -24,10 +24,9 @@ import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 public class LoadAdmTeams extends AsyncTask<Void, Void, Void> {
     public Context context;
     public ArrayList<Route> teamsArray;
-    //public ListView lvMain;
-
     public MainActivity activity;
     public Spinner spinnerTeams;
+    //public ListView lvMain;
 
     List<String> teamsList;
 

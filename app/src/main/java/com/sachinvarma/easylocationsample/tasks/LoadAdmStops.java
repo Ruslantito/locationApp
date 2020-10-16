@@ -19,12 +19,10 @@ import java.util.List;
 
 import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 
-
 /*
 import tj.ilmhona.map.activities.A_RouteStopsFragment;
 import tj.ilmhona.map.activities.A_StopsFragment;
 */
-
 
 public class LoadAdmStops extends AsyncTask<Void, Void, Void> {
     public Context context;
@@ -76,6 +74,5 @@ public class LoadAdmStops extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
     }
-
 
 }

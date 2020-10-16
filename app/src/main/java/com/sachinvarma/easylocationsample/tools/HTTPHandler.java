@@ -13,7 +13,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 public class HTTPHandler {
-
     private static final String TAG = HTTPHandler.class.getSimpleName();
 
     public HTTPHandler() {
@@ -58,7 +57,6 @@ public class HTTPHandler {
                 e.printStackTrace();
             }
         }
-
         return sb.toString();
     }
 }

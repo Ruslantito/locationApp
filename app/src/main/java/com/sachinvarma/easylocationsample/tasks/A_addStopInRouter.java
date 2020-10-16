@@ -18,34 +18,22 @@ import java.util.ArrayList;
 
 import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 
-
 public class A_addStopInRouter extends AsyncTask<Void, Void, Void> {
     public Context context;
-    //public String recordType;
-    //public String tempInfoText;
-    public Integer transportTypeId;
-    public String stop_coordX;
-    public String stop_coordY;
-
     public Integer route_id;
     public Integer stop_id;
     public String name;
     public Spinner spinnerStops;
     public ArrayList<Stops> routeStopsArray;
+    public MainActivity activity;
 
     String backendURL;
-    String infoText;
-
-    public MainActivity activity;
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
         routeStopsArray = new ArrayList<>();
         backendURL = myUrl + "/addRouteStop/" + route_id + "/" + stop_id;
-        infoText = "Остановка была добавлена к маршруту";
-
     }
 
     @Override
@@ -71,22 +59,15 @@ public class A_addStopInRouter extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
-        Toast toast = Toast.makeText(context, infoText, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 0);
-        toast.show();
-
         //подгрузить остановки для выбранного маршрута
         LoadAdmRouteStops loadRouteStops;
         loadRouteStops = new LoadAdmRouteStops();
         loadRouteStops.routeId = route_id;
         loadRouteStops.context = context;
-
         loadRouteStops.stop_id = stop_id;
-
         loadRouteStops.activity = activity;
         loadRouteStops.spinnerStops = spinnerStops;
         loadRouteStops.routeStopsArray = routeStopsArray;
         loadRouteStops.execute();
-
     }
 }

@@ -29,14 +29,12 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
     public String tempInfoText;
     public Spinner spinnerStops;
     public ArrayList<Stops> routeStopsArray;
-
     public String teamName;
+    public MainActivity activity;
 
     String backendURL;
     String infoText;
     String new_id;
-
-    public MainActivity activity;
 
     @Override
     protected void onPreExecute() {
@@ -56,10 +54,7 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
         }else if (recordType == "RouteStopNew"){
             backendURL = myUrl + "/addStopNew/" + name + "/" + stop_coordX + "/" + stop_coordY + "/" + teamName;
             infoText = "Новая остановка успешно добавлена!";
-
-        }else {
-
-        }
+        }else { }
     }
 
     @Override
@@ -96,15 +91,11 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
                 addRoute.route_id = route_id;
                 addRoute.context = context;
                 addRoute.stop_id = Integer.parseInt(new_id);
-
                 addRoute.activity = activity;
                 addRoute.spinnerStops = spinnerStops;
                 addRoute.routeStopsArray = routeStopsArray;
-
                 addRoute.execute();
             }
         }
-
-
     }
 }

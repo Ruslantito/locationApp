@@ -3,8 +3,10 @@ package com.sachinvarma.easylocationsample.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.sachinvarma.easylocationsample.MainActivity;
 import com.sachinvarma.easylocationsample.R;
@@ -15,12 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 
 public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
-
     public Context context;
     public ArrayList<Stops> routeStopsArray;
     public int routeId;
@@ -29,11 +31,9 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
     //public TextView labelStopsListFRS;
 
     public Integer stop_id;
-
     public Spinner spinnerStops;
     public MainActivity activity;
     List<String> routeStopsList;
-
 
     @Override
     protected void onPreExecute() {
@@ -75,7 +75,6 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(result);
 
         activity.routeStopsArray = routeStopsArray;
-        //labelStopsListFRS.setText("Остановки для машрута (" + stopsList.size() + ")");
         /*
         // устанавливаем режим выбора пунктов списка
         lvMain.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -84,22 +83,28 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
         */
 
 
+        //uniqium data from array
+        List<String> routeStopsListNew = new ArrayList<String>();
+        int currentIndex = 0;
+        for (String city : routeStopsList) {
+            int index = routeStopsList.lastIndexOf(city);
+            if (index == currentIndex) {
+                routeStopsListNew.add(city);
+            }
+            currentIndex++;
+        }
+        Toast toast = Toast.makeText(context, routeStopsListNew.toString(), Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.show();
+        ///////
+
 
         // выпадающий список для остановок
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_layout, routeStopsList);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_layout, routeStopsListNew);
         //ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, routeStopsList);
         spinnerStops.setAdapter(adapter2);
 
-        /*//попытка выбрать остановку которая была до добавления новой остановки
-        if (stop_id != null){
-            for (int i = 0; i < routeStopsArray.size(); i++) {
-                if(stop_id == routeStopsArray.get(i).id){
-                    activity.spinnerStops.setSelection(i);
-                }
-            }
-        }
-
-        */
-
+        //show the button for send data
+        activity.showButtonSend(true);
     }
 }

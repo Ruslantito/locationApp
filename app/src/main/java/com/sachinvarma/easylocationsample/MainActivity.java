@@ -35,14 +35,13 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener, AdapterView.OnItemSelectedListener {
-
   private int timeInterval = 3000;
   private int fastestTimeInterval = 3000;
   private boolean runAsBackgroundService = false;
-
-  public ListView lvMain2;
   public ArrayList<Route> routesArray;
   public ArrayList<Stops> routeStopsArray;
+  public int routeID = 0;
+  public ListView lvMain2;
   //public TextView labelRoutesListFRS, labelStopsListFRS;
 
   ArrayList<Stops> routeStopsArrayChoosed;
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
   TextView tvStopId, labelStopsList;
   EditText etStopName;
   EditText etCoordX, etCoordY;
-  public int routeID = 0;
   Integer stopID;
 
   Spinner spinnerRoutes;
@@ -59,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
   Spinner spinnerTeams;
 
   Button btGetLocation;
+  Button btGetLocationTmp;
   Button btAddStopNew;
   Button btHideStopNew;
 
@@ -82,17 +81,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     spinnerTeams = findViewById(R.id.spinnerTeam);
 
     btGetLocation = findViewById(R.id.btGetLocation);
+    btGetLocationTmp = findViewById(R.id.btGetLocationTmp);
     btAddStopNew = findViewById(R.id.btAddStopNew);
     btHideStopNew = findViewById(R.id.btHideStopNew);
 
     btGetLocation.setOnClickListener(this);
+    btGetLocationTmp.setOnClickListener(this);
     btAddStopNew.setOnClickListener(this);
     btHideStopNew.setOnClickListener(this);
 
     spinnerRoutes.setOnItemSelectedListener(this);
     spinnerStops.setOnItemSelectedListener(this);
     spinnerTeams.setOnItemSelectedListener(this);
-
 
     //скрыть ячейку для добавления остановок
     etStopName.setVisibility(View.INVISIBLE);
@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     //подгружаем список всех маршрутов
     loadDataFromRoutes();
 
+    //скрываем кнопку для отправки остановок
+    //showButton(false);
 
     /*
     //подгружаем остановки для выбранного маршрута
@@ -126,12 +128,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
       }});
      */
 
-
   }
 
-
 //////////////
-
   //подгрузить все команды
   public void loadDataFromTeams(){
     LoadAdmTeams loaderTeams;
@@ -142,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     loaderTeams.spinnerTeams = spinnerTeams;
     loaderTeams.execute();
   }
-
 
   //подгрузить все маршруты
   public void loadDataFromRoutes(){
@@ -169,19 +167,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     loadRouteStops.execute();
   }
 
-
   //подгрузить информацию выбранной остановки в ячейки
   public void loadSelectedFromStops(){
     Integer tempID = routeStopsArray.get(lvMain2.getCheckedItemPosition()).id;
     tvStopId.setText(tempID.toString());
-
     etStopName.setText(routeStopsArray.get(lvMain2.getCheckedItemPosition()).name);
     double tempX = routeStopsArray.get(lvMain2.getCheckedItemPosition()).x;
     double tempY = routeStopsArray.get(lvMain2.getCheckedItemPosition()).y;
     etCoordX.setText(Double.toString(tempX));
     etCoordY.setText(Double.toString(tempY));
   }
-
 
   //NEW подгрузить информацию выбранной остановки в ячейки
   public void loadSelectedFromStopsNew(int selPosition, int selId){
@@ -195,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     //etCoordY.setText(Double.toString(tempY));
   }
 
-
   //зачистить данные об остановке в ячейках
   public void cleanFields(){
     tvStopId.setText(null);
@@ -204,7 +198,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     //etCoordY.setText("");
   }
 
-
   //добавить остановку в маршрут
   public void addRouteStopNew(String tempInfoText){
     A_addRecord addRouteStopNew;
@@ -212,16 +205,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     addRouteStopNew.context = getApplicationContext();
     addRouteStopNew.name = etStopName.getText().toString();
     addRouteStopNew.recordType = "RouteStopNew";
-
     addRouteStopNew.route_id = routeID;
     addRouteStopNew.tempInfoText = tempInfoText;
     addRouteStopNew.spinnerStops = spinnerStops;
     addRouteStopNew.routeStopsArray = routeStopsArray;
     addRouteStopNew.activity = this;
-
-
     addRouteStopNew.teamName = spinnerTeams.getSelectedItem().toString();
-
 
     String tempX = etCoordX.getText().toString();
     String tempY = etCoordY.getText().toString();
@@ -230,10 +219,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     if (tempY.equals("")){ tempY = tempValue.toString(); }
     addRouteStopNew.stop_coordX = tempX;
     addRouteStopNew.stop_coordY = tempY;
-
     addRouteStopNew.execute();
   }
-
 
   //получить координату девайса
   public void currentLocation(){
@@ -243,7 +230,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
   //показать или скрыть ячейку для добавления новой остановки
   public void stopFieldVisibleOrNot(boolean stopFieldVisible){
     if (stopFieldVisible) {
-      //spinnerStops.setAdapter(null);
       spinnerStops.setVisibility(View.INVISIBLE);
       spinnerStops.setEnabled(false);
 
@@ -254,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
       btAddStopNew.setVisibility(View.INVISIBLE);
       btHideStopNew.setVisibility(View.VISIBLE);
     }else {
-      //spinnerStops.setAdapter(null);
       spinnerStops.setVisibility(View.VISIBLE);
       spinnerStops.setEnabled(true);
 
@@ -265,13 +250,46 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
       btAddStopNew.setVisibility(View.VISIBLE);
       btHideStopNew.setVisibility(View.INVISIBLE);
     }
-
   }
 
+  //show/hide button
+  public void showButtonSend(Boolean showButton){
+    if(showButton){
+      btGetLocation.setVisibility(View.VISIBLE);
+      btGetLocationTmp.setVisibility(View.INVISIBLE);
+    }else{
+      btGetLocation.setVisibility(View.INVISIBLE);
+      btGetLocationTmp.setVisibility(View.VISIBLE);
+    }
+  }
+
+  //show info window with custom text
   public void infoWindow(String infoText ){
     Toast toast = Toast.makeText(getApplicationContext(), infoText, Toast.LENGTH_LONG);
     toast.setGravity(Gravity.TOP, 0, 0);
     toast.show();
+  }
+
+  //check fields for empty
+  public void checkEmptyFiels(){
+    Boolean infoPresent = false;
+    String infoText = "";
+    if (spinnerTeams.getSelectedItemPosition() < 1) {
+      infoPresent = true;
+      infoText = "название команды";
+    }
+    if (spinnerRoutes.getSelectedItemPosition() < 1) {
+      infoPresent = true;
+      if (infoText.equals("")){ infoText = "название маршрута"; }
+      else{ infoText = infoText + ", название маршрута"; }
+    }
+    String data = etStopName.getText().toString();
+    if (data.equals("")) {
+      infoPresent = true;
+      if (infoText.equals("")){ infoText = "остановку"; }
+      else{ infoText = infoText + " и остановку"; }
+    }
+    if (infoPresent){ infoWindow("Пожалуйста выберите " + infoText); }
   }
 
   @Override
@@ -285,16 +303,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
               currentLocation();
               addRouteStopNew("");
               stopFieldVisibleOrNot(false);
-            } else {
-              infoWindow("Пожалуйста выберите остановку!");
-            }
-          } else {
-            infoWindow("Пожалуйста выберите название маршрута");
-          }
-        } else {
-          infoWindow("Пожалуйста выберите название команды");
-        }
-
+              showButtonSend(false);
+            } else { checkEmptyFiels(); }
+          } else { checkEmptyFiels(); }
+        } else { checkEmptyFiels(); }
+        break;
+      case R.id.btGetLocationTmp:
+        //checkEmptyFiels();
         break;
       case R.id.btAddStopNew:
         stopFieldVisibleOrNot(true);
@@ -304,8 +319,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         break;
     };
   }
-
-
 
   @Override
   public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -317,7 +330,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         }else {
           spinnerStops.setAdapter(null);
         }
-
         break;
       case R.id.spinnerStops:
         if(position > 0) {
@@ -327,7 +339,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
           cleanFields();
         }
         break;
-
       case R.id.spinnerTeam:
         if(position > 0) {
           // TODO something
@@ -335,16 +346,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
           // TODO if choosed first
         }
         break;
-
     };
   }
   @Override
   public void onNothingSelected(AdapterView<?> parentView) {}
-
 //////////////
-
-
-
 
   @Override
   protected void onStart() {
@@ -365,15 +371,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
       if (((LocationEvent) event).location != null) {
         ((TextView) findViewById(R.id.tvLocation)).setText("Ваши координаты \nX: "
           + ((LocationEvent) event).location.getLatitude()
-          + "  Y: "
-          + ((LocationEvent) event).location.getLongitude());
-
+          + "  Y: " + ((LocationEvent) event).location.getLongitude());
 
 //////////////
         etCoordX.setText(Double.toString(((LocationEvent) event).location.getLatitude()));
         etCoordY.setText(Double.toString(((LocationEvent) event).location.getLongitude()));
 //////////////
-
 
       }
     }
