@@ -225,7 +225,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     A_addRecord addRouteStopNew;
     addRouteStopNew = new A_addRecord();
     addRouteStopNew.context = getApplicationContext();
-    addRouteStopNew.name = etStopName.getText().toString();
+
+    // защита от ввода специальных символов
+    String stName = etStopName.getText().toString();
+    stName = stName.replaceAll("\\W+","");
+
+    addRouteStopNew.name = stName;
     addRouteStopNew.recordType = "RouteStopNew";
     addRouteStopNew.route_id = routeID;
     addRouteStopNew.tempInfoText = tempInfoText;

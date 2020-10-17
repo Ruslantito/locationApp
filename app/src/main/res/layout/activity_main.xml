@@ -527,7 +527,7 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Button"
-      android:visibility="invisible" />
+      android:visibility="visible" />
 
 
 </LinearLayout>
