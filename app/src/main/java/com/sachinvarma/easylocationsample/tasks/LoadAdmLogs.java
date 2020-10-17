@@ -1,13 +1,19 @@
 package com.sachinvarma.easylocationsample.tasks;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.sachinvarma.easylocationsample.LogsActivity;
+import com.sachinvarma.easylocationsample.MainActivity;
+import com.sachinvarma.easylocationsample.R;
 import com.sachinvarma.easylocationsample.objects.Stops;
+import com.sachinvarma.easylocationsample.objects.Team;
 import com.sachinvarma.easylocationsample.tools.HTTPHandler;
 
 import org.json.JSONArray;
@@ -19,12 +25,15 @@ import java.util.List;
 
 import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
 
-public class LoadAdmStops extends AsyncTask<Void, Void, Void> {
+public class LoadAdmLogs extends AsyncTask<Void, Void, Void>{
     public Context context;
+    public ListView lvMain;
+    public LogsActivity activity;
+
     public ArrayList<Stops> stopsArray;
-    public ListView lvMain2;
-    public String choiceMode;
-    public String activ_name;
+    //public String choiceMode;
+    //public String activ_name;
+
     public TextView labelStopsList;
     public TextView labelStopsListFRS;
 
@@ -69,6 +78,17 @@ public class LoadAdmStops extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+
+        //подгружаем список в переменную находящуюся в Activity
+        //activity.teamsArray = teamsArray;
+
+
+/*        // устанавливаем режим выбора пунктов списка
+        lvMain.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, stopSimpleArray);
+        lvMain.setAdapter(adapter);
+ */
+
     }
 
 }

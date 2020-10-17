@@ -1,7 +1,8 @@
 <resources>
   <string name="app_name">Mapathon2020</string>
-  <string name="get_location">Добавить остановку</string>
+  <string name="get_location">Сохранить остановку</string>
   <string name="no_location_found">Место не найдено</string>
   <string name="add_newStop">+</string>
   <string name="hide_newStop">x</string>
+  <string name="copy_location">Запомнить коор-ты</string>
 </resources>

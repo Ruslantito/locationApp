@@ -4,5 +4,5 @@ public class Route {
     public int id;
     public String name;
     public int transportType;
-    public String details;
+    public int teamId_hasAccess;
 }

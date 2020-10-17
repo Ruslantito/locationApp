@@ -58,6 +58,7 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
                     stop.name = newJSONObject.getString("name");
                     stop.x = newJSONObject.getDouble("coord_x");
                     stop.y = newJSONObject.getDouble("coord_y");
+                    stop.id = newJSONObject.getInt("teamId");
                     routeStopsArray.add(stop);
                     routeStopsList.add(stop.name);
                 }
@@ -93,9 +94,11 @@ public class LoadAdmRouteStops extends AsyncTask<Void, Void, Void> {
             }
             currentIndex++;
         }
+        /*
         Toast toast = Toast.makeText(context, routeStopsListNew.toString(), Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM, 0, 0);
         toast.show();
+        */
         ///////
 
 

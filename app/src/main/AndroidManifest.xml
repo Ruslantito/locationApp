@@ -34,6 +34,9 @@
       </intent-filter>
     </activity>
 
+    <activity android:name="com.sachinvarma.easylocationsample.LogsActivity">
+    </activity>
+
     <service android:name="com.sachinvarma.easylocation.EasyLocationService"/>
   </application>
 

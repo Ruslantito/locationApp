@@ -25,8 +25,11 @@ public class LoadAdmRoutes extends AsyncTask<Void, Void, Void> {
     public MainActivity activity;
     public Spinner spinnerRoutes;
     //public ListView lvMain;
+    public Integer teamId_hasAccess;
 
     List<String> routesList;
+    String backendURL;
+    Boolean newScript;
 
     @Override
     protected void onPreExecute() {
@@ -34,13 +37,26 @@ public class LoadAdmRoutes extends AsyncTask<Void, Void, Void> {
         routesArray = new ArrayList<>();
         routesList = new ArrayList<>();
         routesList.add("Выберите маршрут");
+
+
+
+        //newScript = false;
+        //if (newScript){
+            //limited routes just for this team
+        //    backendURL = myUrl + "/routesNew" + "/" + teamId_hasAccess;
+        //}else{
+            backendURL = myUrl + "/routes";
+        //}
+
+
+
     }
 
     @Override
     protected Void doInBackground(Void... arg0) {
         try {
             HTTPHandler handler = new HTTPHandler();
-            String json = handler.makeServiceCall(myUrl + "/routes");
+            String json = handler.makeServiceCall(backendURL);
             if (json != null) {
                 JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
@@ -50,6 +66,7 @@ public class LoadAdmRoutes extends AsyncTask<Void, Void, Void> {
                     route.id = newJSONObject.getInt("id");
                     route.name = newJSONObject.getString("name");
                     route.transportType = newJSONObject.getInt("transport_type_id");
+                    route.teamId_hasAccess = newJSONObject.getInt("teamId_hasAccess");
                     routesArray.add(route);
                     routesList.add(route.name);
                 }
@@ -69,16 +86,9 @@ public class LoadAdmRoutes extends AsyncTask<Void, Void, Void> {
         //подгружаем список в переменную находящуюся в Activity
         activity.routesArray = routesArray;
 
-        /*
-        // устанавливаем режим выбора пунктов списка
-        lvMain.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, routesList);
-        lvMain.setAdapter(adapter);
-        */
-
         // выпадающий список для маршрутов
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_layout, routesList);
         //ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, routesList);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_layout, routesList);
         spinnerRoutes.setAdapter(adapter2);
     }
 

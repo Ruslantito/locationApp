@@ -29,7 +29,7 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
     public String tempInfoText;
     public Spinner spinnerStops;
     public ArrayList<Stops> routeStopsArray;
-    public String teamName;
+    public Integer teamId;
     public MainActivity activity;
 
     String backendURL;
@@ -52,7 +52,7 @@ public class A_addRecord extends AsyncTask<Void, Void, Void> {
             backendURL = myUrl + "addTransportType/" + name;
             infoText = "Новый вид транспорта успешно добавлен!";
         }else if (recordType == "RouteStopNew"){
-            backendURL = myUrl + "/addStopNew/" + name + "/" + stop_coordX + "/" + stop_coordY + "/" + teamName;
+            backendURL = myUrl + "/addStopNew/" + name + "/" + stop_coordX + "/" + stop_coordY + "/" + teamId;
             infoText = "Новая остановка успешно добавлена!";
         }else { }
     }

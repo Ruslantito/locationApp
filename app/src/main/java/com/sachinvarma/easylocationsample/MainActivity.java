@@ -2,11 +2,17 @@ package com.sachinvarma.easylocationsample;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.View;
@@ -24,7 +30,9 @@ import com.sachinvarma.easylocation.event.Event;
 import com.sachinvarma.easylocation.event.LocationEvent;
 import com.sachinvarma.easylocationsample.objects.Route;
 import com.sachinvarma.easylocationsample.objects.Stops;
+import com.sachinvarma.easylocationsample.objects.Team;
 import com.sachinvarma.easylocationsample.tasks.A_addRecord;
+import com.sachinvarma.easylocationsample.tasks.LoadAdmLogs;
 import com.sachinvarma.easylocationsample.tasks.LoadAdmRouteStops;
 import com.sachinvarma.easylocationsample.tasks.LoadAdmRoutes;
 import com.sachinvarma.easylocationsample.tasks.LoadAdmTeams;
@@ -32,7 +40,11 @@ import com.sachinvarma.easylocationsample.tasks.LoadAdmTeams;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import android.provider.Settings.Secure;
 import java.util.ArrayList;
+
+import static com.sachinvarma.easylocationsample.tools.MyData.myUrl;
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener, AdapterView.OnItemSelectedListener {
   private int timeInterval = 3000;
@@ -40,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
   private boolean runAsBackgroundService = false;
   public ArrayList<Route> routesArray;
   public ArrayList<Stops> routeStopsArray;
+  public ArrayList<Team> teamsArray;
+
+  public String android_id;
   public int routeID = 0;
   public ListView lvMain2;
   //public TextView labelRoutesListFRS, labelStopsListFRS;
@@ -52,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
   EditText etCoordX, etCoordY;
   Integer stopID;
 
+
+  Editable etCoordX_Temp;
+  Editable etCoordY_Temp;
+  Boolean coordInBufferPresent = false;
+
+
   Spinner spinnerRoutes;
   Spinner spinnerStops;
   Spinner spinnerTeams;
@@ -61,15 +82,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
   Button btAddStopNew;
   Button btHideStopNew;
 
+
+  Button btGetLocCopy;
+  Button btnGoToLogs;
+
+
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-    //lvMain = findViewById(R.id.lvMain);
-    //lvMain2 = findViewById(R.id.lvMain2);
-    //labelRoutesListFRS = findViewById(R.id.labelRoutesListFRS);
-    //labelStopsListFRS = findViewById(R.id.labelStopsListFRS);
 
     tvStopId = findViewById(R.id.tvStopId);
     etStopName = findViewById(R.id.etStopName);
@@ -84,6 +106,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     btGetLocationTmp = findViewById(R.id.btGetLocationTmp);
     btAddStopNew = findViewById(R.id.btAddStopNew);
     btHideStopNew = findViewById(R.id.btHideStopNew);
+
+
+    btnGoToLogs = findViewById(R.id.btnGoToLogs);
+    btnGoToLogs.setOnClickListener(this);
+
+    btGetLocCopy = findViewById(R.id.btGetLocCopy);
+    btGetLocCopy.setOnClickListener(this);
+
 
     btGetLocation.setOnClickListener(this);
     btGetLocationTmp.setOnClickListener(this);
@@ -102,46 +132,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     //скрыть ячейку для добавления новой остановки
     stopFieldVisibleOrNot(false);
 
-    //подгружаем данные о координатах в которых мы сейчас находимся
-    currentLocation();
+    //подгружаем список всех маршрутов
+    loadDataFromRoutes();
 
     //подгружаем список всех команд
     loadDataFromTeams();
 
-    //подгружаем список всех маршрутов
-    loadDataFromRoutes();
-
-    //скрываем кнопку для отправки остановок
-    //showButton(false);
-
-    /*
-    //подгружаем остановки для выбранного маршрута
-    lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        loadDataFromRouteStops(routesArray.get(lvMain.getCheckedItemPosition()).id, "none");
-      }});
-
-    //подгружаем данные выбранной остановки в ячейки
-    lvMain2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        loadSelectedFromStops();
-      }});
-     */
+    //подгружаем данные о координатах в которых мы сейчас находимся
+    currentLocation();
 
   }
 
 //////////////
-  //подгрузить все команды
-  public void loadDataFromTeams(){
-    LoadAdmTeams loaderTeams;
-    loaderTeams = new LoadAdmTeams();
-    //loaderTeams.teamsArray = teamsArray;
-    loaderTeams.context = getApplicationContext();
-    loaderTeams.activity = this;
-    loaderTeams.spinnerTeams = spinnerTeams;
-    loaderTeams.execute();
-  }
-
   //подгрузить все маршруты
   public void loadDataFromRoutes(){
     LoadAdmRoutes loaderRoutes;
@@ -151,6 +153,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     loaderRoutes.context = getApplicationContext();
     loaderRoutes.activity = this;
     loaderRoutes.spinnerRoutes = spinnerRoutes;
+
+    //if (spinnerTeams.getSelectedItemPosition() > 0){
+    //  loaderRoutes.teamId_hasAccess = teamsArray.get(spinnerTeams.getSelectedItemPosition()-1).id;;
+    //}
+
     loaderRoutes.execute();
   }
 
@@ -177,6 +184,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     etCoordX.setText(Double.toString(tempX));
     etCoordY.setText(Double.toString(tempY));
   }
+
+
+  //подгрузить все команды
+  public void loadDataFromTeams(){
+    LoadAdmTeams loaderTeams;
+    loaderTeams = new LoadAdmTeams();
+    //loaderTeams.teamsArray = teamsArray;
+    loaderTeams.context = getApplicationContext();
+    loaderTeams.teamsArray = teamsArray;
+    loaderTeams.activity = this;
+    loaderTeams.spinnerTeams = spinnerTeams;
+    loaderTeams.execute();
+  }
+
+
 
   //NEW подгрузить информацию выбранной остановки в ячейки
   public void loadSelectedFromStopsNew(int selPosition, int selId){
@@ -210,7 +232,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     addRouteStopNew.spinnerStops = spinnerStops;
     addRouteStopNew.routeStopsArray = routeStopsArray;
     addRouteStopNew.activity = this;
-    addRouteStopNew.teamName = spinnerTeams.getSelectedItem().toString();
+
+    addRouteStopNew.teamId = teamsArray.get(spinnerTeams.getSelectedItemPosition()-1).id;
 
     String tempX = etCoordX.getText().toString();
     String tempY = etCoordY.getText().toString();
@@ -300,8 +323,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
           if (spinnerRoutes.getSelectedItemPosition() > 0) {
             String data = etStopName.getText().toString();
             if (!data.equals("")) {
+
               currentLocation();
               addRouteStopNew("");
+
               stopFieldVisibleOrNot(false);
               showButtonSend(false);
             } else { checkEmptyFiels(); }
@@ -316,6 +341,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         break;
       case R.id.btHideStopNew:
         stopFieldVisibleOrNot(false);
+        break;
+
+      case R.id.btnGoToLogs:
+        goToActivity();
+        break;
+
+      case R.id.btGetLocCopy:
+        copyCoordinate();
         break;
     };
   }
@@ -350,6 +383,44 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
   }
   @Override
   public void onNothingSelected(AdapterView<?> parentView) {}
+
+
+//для перехода к статистике
+  public void goToActivity(){
+    Intent intent = new Intent(getApplicationContext(), LogsActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    getApplicationContext().startActivity(intent);
+  }
+
+  //копировать координаты в буфер (2 ячейки х у)
+  public void copyCoordinate() {
+    etCoordX_Temp = etCoordX.getText();
+    etCoordY_Temp = etCoordY.getText();
+    coordInBufferPresent = true;
+    //infoWindow(etCoordX_Temp + "|||" + etCoordY_Temp);
+
+
+    AlertDialog alertDialog = new AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Выбор координаты для добавления")
+            .setMessage("Хотите ли вы использовать сохраненные координаты?")
+            .setPositiveButton("Коор-ты из буфера", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "Да", Toast.LENGTH_LONG).show();
+              }
+            })
+            .setNegativeButton("Коор-ты устройства", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "Нет", Toast.LENGTH_LONG).show();
+              }
+            })
+            .show();
+
+
+  }
+
 //////////////
 
   @Override

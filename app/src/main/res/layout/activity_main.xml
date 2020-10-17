@@ -193,7 +193,7 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           android:layout_height="wrap_content"
           android:layout_marginStart="10dp"
           android:layout_marginTop="40dp"
-          android:layout_marginEnd="10dp"
+          android:layout_marginEnd="30dp"
           android:gravity="center"
           android:text="@string/no_location_found"
           android:textColor="@android:color/darker_gray"
@@ -204,14 +204,30 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           app:layout_constraintTop_toTopOf="parent"
           tools:ignore="MissingConstraints" />
 
+
+      <Button
+          android:id="@+id/btGetLocCopy"
+          style="@style/Widget.AppCompat.Button.Colored"
+          android:layout_width="110dp"
+          android:layout_height="110dp"
+          android:layout_marginStart="32dp"
+          android:background="@drawable/roundedbutton"
+          android:clickable="true"
+          android:focusable="true"
+          android:text="@string/copy_location"
+          android:textSize="16sp"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/btGetLocation"
+          tools:visibility="invisible" />
+
       <Button
           android:id="@+id/btGetLocation"
           style="@style/Widget.AppCompat.Button.Colored"
           android:layout_width="140dp"
           android:layout_height="140dp"
-          android:layout_marginStart="16dp"
           android:layout_marginTop="50dp"
-          android:layout_marginEnd="16dp"
           android:background="@drawable/roundedbutton"
           android:clickable="true"
           android:focusable="true"
@@ -226,9 +242,7 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           style="@style/Widget.AppCompat.Button.Colored"
           android:layout_width="140dp"
           android:layout_height="140dp"
-          android:layout_marginStart="16dp"
           android:layout_marginTop="50dp"
-          android:layout_marginEnd="16dp"
           android:background="@drawable/roundedbuttontmp"
           android:clickable="true"
           android:enabled="true"
@@ -276,7 +290,7 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
           app:layout_constraintTop_toTopOf="parent" />
 
       <ListView
-          android:id="@+id/lvMain"
+          android:id="@+id/lvMainLog"
           android:layout_width="match_parent"
           android:layout_height="100dp"
           android:paddingBottom="5dp"
@@ -507,6 +521,13 @@ tools:context="com.sachinvarma.easylocationsample.MainActivity">
     </android.support.constraint.ConstraintLayout>
 
   </android.support.constraint.ConstraintLayout>
+
+  <Button
+      android:id="@+id/btnGoToLogs"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Button"
+      android:visibility="invisible" />
 
 
 </LinearLayout>
